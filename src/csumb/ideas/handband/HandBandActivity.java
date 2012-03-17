@@ -6,6 +6,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +18,11 @@ public class HandBandActivity extends Activity implements OnTouchListener{
 	StringBuilder builder = new StringBuilder();
 	TextView textview;
 
+	//onCreate method sets the window to fullscreen and creates an onTouchListener
     @Override
 	public void onCreate(Bundle savedInstanceState) {
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		super.onCreate(savedInstanceState);
 		textview = new TextView(this);
 		textview.setText("Touch anywhere!"); 
@@ -25,6 +30,7 @@ public class HandBandActivity extends Activity implements OnTouchListener{
 		setContentView(textview);
     }
 	
+    //onTouch 
 	public boolean onTouch(View v, MotionEvent event) {
 		builder.setLength(0);
 		switch (event.getAction()){
@@ -41,6 +47,7 @@ public class HandBandActivity extends Activity implements OnTouchListener{
 			builder.append("up, ");
 			break;
 		}
+		
 		builder.append(event.getX());
 		builder.append(", ");
 		builder.append(event.getY());
